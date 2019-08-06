@@ -31,7 +31,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -44,6 +44,34 @@
 					"id": -1,
 					"name": "添加面试",
 					"pathName": "pages/addInterview/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "选择面试地址",
+					"pathName": "pages/interviewAddress/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "面试列表",
+					"pathName": "pages/interviewList/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "面试详情",
+					"pathName": "pages/interviewDetails/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "打卡页面",
+					"pathName": "pages/hitCard/main",
 					"scene": null
 				}
 			]
