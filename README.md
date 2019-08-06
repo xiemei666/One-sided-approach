@@ -3,11 +3,17 @@
 > ​One-sided approach 是一面而就 设计的 小程序。项目是基于 mpvue。
 
 
-#### 微信浏览器，请点击"访问原网页"
-
-<figure >
-<img src="./imgs/qrCode.png" width="200"/>
-</figure > -->
+##功能列表
+- [x] 打卡页面
+  - [x] 定位
+- [x] 个人中心
+  - [x] 我的面试
+  - [x] 客服中心
+- [x] 添加面试
+- [x] 选择面试地址
+- [x] 面试列表
+  - [x] Tab切换
+- [x] 面试详情
 
 ## One-sided approach Screenshots
 
