@@ -34,7 +34,7 @@
 
 ## About Me
 
-> Name: JK现任
+> Name:Jk
 >
 > QQ: 1805914473
 >
