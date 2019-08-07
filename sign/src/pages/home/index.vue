@@ -6,10 +6,13 @@
         <div class="dingW" @click="location">
           <img src="../../../static/images/location.png" />
         </div>
+        <div class="my" @click="location">
+          <img src="../../../static/images/my.png" />
+        </div>
       </div>
     </div>
     <div class="cover">
-      <button>打卡</button>
+      <button>添加面试</button>
     </div>
   </div>
 </template>
@@ -61,6 +64,27 @@ export default {
         z-index: 1001;
         bottom: 60rpx;
         left: 20rpx;
+        display: block;
+        line-height: 1.2;
+        overflow: hidden;
+        white-space: nowrap;
+        pointer-events: auto;
+        font-family: -apple-system;
+        img {
+          height: 80rpx;
+          width: 80rpx;
+          display: block;
+          line-height: 1.2;
+          overflow: hidden;
+          pointer-events: auto;
+        }
+      }
+      .my{
+        height: 80rpx;
+        position: absolute;
+        z-index: 1001;
+        bottom: 60rpx;
+        right: 20rpx;
         display: block;
         line-height: 1.2;
         overflow: hidden;
