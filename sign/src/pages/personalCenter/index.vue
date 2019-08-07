@@ -11,7 +11,7 @@
     <div class="main">
       <div class="myInterview">
         <i><img src="../../../static/images/shizhong-copy.png"/></i>
-        <label class="span">我的面试</label>
+        <label class="span" @click="interviewList">我的面试</label>
         <img src="../../../static/images/arrow.svg"/>
       </div>
       <button class="serviceCenter">
@@ -40,12 +40,9 @@ export default {
     // }
   },
   methods: {
-    // increment() {
-    //   store.commit("increment");
-    // },
-    // decrement() {
-    //   store.commit("decrement");
-    // }
+   interviewList(){
+    wx.navigateTo({url: '../interviewList/main'})
+   }
   }
 };
 </script>

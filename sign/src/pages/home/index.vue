@@ -10,7 +10,7 @@
     <cover-view class="location" @click="location">
     <cover-img><img src="../../../static/images/location.png" alt=""></cover-img>
     </cover-view>
-      <img src="../../../static/images/my.png" class="img" alt="">
+      <img src="../../../static/images/my.png" class="img" alt="" @click="mine">
     <button class="add" @click="go">
     添加面试
     </button>
@@ -37,6 +37,9 @@ export default {
     }),
     go(){
        wx.navigateTo({url: '../addInterview/main'})
+    },
+    mine(){
+      wx.navigateTo({url: '../personalCenter/main'})
     }
   }
 }

@@ -17,37 +17,45 @@
       <p class="listItem">
         <span>面试时间</span>
         <label class="Import">
-          <input placeholder>
+          <input placeholder  @click="address">
           <img src="../../../static/images/jinggao.png" alt="">
         </label>
       </p>
       <p class="listItem">
         <span>面试地址</span>
         <label>
-          <input placeholder="请选择面试地址" onChange="address">
+          <input placeholder="请选择面试地址">
         </label>
       </p>
     </div>
     <h4 class="remarkTitle">备注信息</h4>
     <div class="remarkContent">
-      <div>
         <textarea></textarea>
-      </div>
     </div>
-    <div class="sumbitBtn">确定</div>
+    <div class="sumbitBtn" @click="interview">确定</div>
   </div>
 </template>
-
 <script>
 // Use Vuex
 // import store from "./store";
-
+import {mapState,mapActions} from 'vuex'
 export default {
-  computed: {},
+  computed: { 
+  },
   methods: {
+       ...mapActions({
+          getSuggestion:'address/getSuggestion'
+        }),
+
     address(){
       wx.navigateTo({url: '../interviewAddress/main'})
-    }
+    },
+     interview(){
+      wx.navigateTo({url: '../interviewList/main'})
+    }  
+  },
+  mounted(){
+    this.getSuggestion('五棵松')
   }
 };
 </script>
@@ -88,7 +96,7 @@ export default {
   }
   .remarkContent {
     padding: 15rpx 15rpx 25rpx;
-    > div {
+    > textarea {
       width: 100%;
       height: 200rpx;
       border: 1px solid #c6c6c6;
