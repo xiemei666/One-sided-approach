@@ -19,11 +19,11 @@
 
 |         打卡页面         |         个人中心        |         添加面试         |
 | :------------------: | :----------------------: | :------------------: |
-| ![](./img/打卡/png) | ![](./img/gerenzhongxin/png) | ![](./img/tianjiamianshi/png) |
+| ![](./img/打卡.png) | ![](./img/gerenzhongxin.png) | ![](./img/tianjiamianshi.png) |
 
 |         选择面试地址         |          面试列表           |            面试详情            | 
 | :-------------------: | :-------------------------: | :----------------------------: |
-| ![](./img/tianjiadizhi/png) | ![](./img/mianshileibiao/png) | ![](./img/详情/png) |
+| ![](./img/tianjiadizhi.png) | ![](./img/mianshileibiao.png) | ![](./img/详情.png) |
 
 
 ## End
