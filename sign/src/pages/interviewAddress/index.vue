@@ -5,7 +5,7 @@
             <input placeholder="面试地址" class="input" @input="(e)=>getUrl(e)" :value="val" v-model="val"/>
         </div>
         <div class="ul">
-            <div class="li" v-for="item in data" :key="item.id">
+            <div class="li" v-for="item in data" :key="item.id" @click="add(item)">
                 <img src="../../../static/images/location.svg"/>
                 <div class="_div">
                     <p class="first">{{item.title}}</p>
@@ -40,6 +40,7 @@ export default {
         // }),
         ...mapMutations({
             searchVal: "address/searchVal",
+            add:"address/add"
         }),
         getUrl(e) {
             let timer=null;

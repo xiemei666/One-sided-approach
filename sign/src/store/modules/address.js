@@ -6,7 +6,8 @@ const qqMapSdk = new QQMapWX({
 });
 
 const state = {
-  data: []
+  data: [],
+  address:""
 }
 
 const actions = {
@@ -32,6 +33,11 @@ const mutations = {
         state.data = res.data
       }
     });
+  },
+  add(state,payload){
+    console.log("111111",payload)
+    state.address = payload;
+    wx.navigateTo({ url: "../../pages/addInterview/main" });
   }
 }
 

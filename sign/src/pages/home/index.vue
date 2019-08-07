@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="cover">
-      <button>添加面试</button>
+      <button @click='click'>添加面试</button>
     </div>
   </div>
 </template>
@@ -35,7 +35,10 @@ export default {
   methods: {
     ...mapActions({
       location: "hitCard/getLocation"
-    })
+    }),
+    click(){
+      wx.navigateTo({ url: "../addInterview/main" });
+    }
   },
   created() {},
   mounted() {}
