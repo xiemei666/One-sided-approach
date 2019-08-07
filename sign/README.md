@@ -34,8 +34,8 @@
 
 ## About Me
 
-> Name: 斌少
+> Name: JK现任
 >
-> QQ: 799770735
+> QQ: 1805914473
 >
-> Email：700770735@qq.com
+> Email：1805914473@qq.com
