@@ -1,19 +1,17 @@
 {
   "pages": [
-      "pages/personalCenter/main",
-    "pages/hitCard/main",
+    "pages/home/main",
     "pages/addInterview/main",
-    "pages/facedetails/main",
-    "pages/faceList/main",
-  
+    "pages/hitCard/main",
     "pages/interviewDetails/main",
     "pages/interviewList/main",
-    "pages/interviewAddress/main"
+    "pages/interviewAddress/main",
+    "pages/personalCenter/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "一面而就",
     "navigationBarTextStyle": "black"
   }
 }

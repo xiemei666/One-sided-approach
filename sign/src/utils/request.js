@@ -9,7 +9,6 @@ const fly = new Fly;
 fly.config.timeout = 10000;
 //设置请求基地址
 fly.config.baseURL = "https://sign.jasonandjay.com"
-
 //添加请求拦截器
 fly.interceptors.request.use((request)=>{
   //给所有请求添加自定义header

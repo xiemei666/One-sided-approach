@@ -16,14 +16,15 @@
       </p>
       <p class="listItem">
         <span>面试时间</span>
-        <label>
+        <label class="Import">
           <input placeholder>
+          <img src="../../../static/images/jinggao.png" alt="">
         </label>
       </p>
       <p class="listItem">
         <span>面试地址</span>
         <label>
-          <input placeholder="请选择面试地址">
+          <input placeholder="请选择面试地址" onChange="address">
         </label>
       </p>
     </div>
@@ -43,7 +44,11 @@
 
 export default {
   computed: {},
-  methods: {}
+  methods: {
+    address(){
+      wx.navigateTo({url: '../interviewAddress/main'})
+    }
+  }
 };
 </script>
 
@@ -98,6 +103,15 @@ export default {
     background: #999999;
     color: #fff;
     font-size: 32rpx;
+  }
+  .Import{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    img{
+      width:50rpx;
+      height:50rpx;
+    }
   }
 }
 </style>
