@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/personalCenter/main",
-    "pages/addInterview/main"
-    
+    "pages/facedetails/main",
+      "pages/faceList/main",
+      "pages/addInterview/main",
+      "pages/personalCenter/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
