@@ -24,7 +24,6 @@ export default {
       markers: []
     }
   },
-  
   computed: {
     ...mapState({
       longitude: state=>state.home.longitude,

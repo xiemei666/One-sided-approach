@@ -18,7 +18,8 @@
         <span>面试时间</span>
         <label class="Import">
           <input placeholder  @click="address">
-          <img src="../../../static/images/jinggao.png" alt="">
+          <img src="../../../static/images/jinggao.png" @click="war" alt="">
+           <van-toast id="van-toast" />
         </label>
       </p>
       <p class="listItem">
@@ -41,25 +42,30 @@
 import {mapState,mapActions} from 'vuex'
 export default {
   computed: { 
+    
   },
   methods: {
        ...mapActions({
           getSuggestion:'address/getSuggestion'
         }),
-
+   
     address(){
       wx.navigateTo({url: '../interviewAddress/main'})
     },
      interview(){
       wx.navigateTo({url: '../interviewList/main'})
-    }  
+    },
+    war(){
+      console.log('222')
+    }
+
   },
-  mounted(){
+  mounted(){ 
     this.getSuggestion('五棵松')
-  }
+  },
+
 };
 </script>
-
 <style lang="scss" scoped>
 .mainWarp {
   width: 100%;

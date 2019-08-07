@@ -43,7 +43,8 @@ export default {
    interviewList(){
     wx.navigateTo({url: '../interviewList/main'})
    }
-  }
+  },
+ 
 };
 </script>
 

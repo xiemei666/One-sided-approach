@@ -1,6 +1,38 @@
 import fly from '@/utils/request';
-
 // 登陆接口
-export let login = code=>{
-  return fly.post('/user/code2session', {code});
+export function login(code) {
+  return fly.post('/user/code2session', { code });
+}
+
+//添加面试
+export function Addinterview(params) {
+  return fly.post('/sign', params);
+}
+
+//获取面试详情
+export function InterviewDetails(params) {
+  return fly.get('/sign/7', params);
+}
+//更新面试信息
+export function Updatainterview(params) {
+  return fly.put('/sign/7', params);
+}
+//获取面试列表
+export function GetinterviewList(params){
+   return fly.post('/sign', params);
+}
+
+
+
+//更新手机号
+export function Updatephone(params) {
+  return fly.post('/user/updatePhone', params);
+}
+//解密数据
+export function Decryptdata(params) {
+  return fly.post('/user/decrypt', params);
+}
+//生物认证
+export function Things(params) {
+  return fly.post('/user/fingerPrint', params);
 }
