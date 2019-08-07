@@ -1,9 +1,15 @@
 {
   "pages": [
-    "pages/facedetails/main",
-      "pages/faceList/main",
+      "pages/hitCard/main",
       "pages/addInterview/main",
-      "pages/personalCenter/main"
+  
+    "pages/facedetails/main",
+    "pages/faceList/main",
+    "pages/personalCenter/main",
+    "pages/interviewDetails/main",
+    "pages/interviewList/main",
+    "pages/interviewAddress/main"
+  
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,7 +1,7 @@
 <template>
   <div class="faceList">
       <p class="list">
-    <i class="iconfont icon-fanhui" @click={back()}></i>
+    <i class="iconfont icon-fanhui"></i>
     <span>看看</span>
       </p>
      <div>
