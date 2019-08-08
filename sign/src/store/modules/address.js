@@ -8,15 +8,7 @@ const state = {
   address:""
 }
 const actions = {
-  // getSuggestion({ commit }, payload) {
-  //   qqMapSdk.getSuggestion({
-  //     keyword: payload,
-  //     success: res => {
-  //       console.log('res...222', res);
-  //       commit('updata', res)
-  //     }
-  //   })
-  // }
+  
 }
 const mutations = {
   searchVal(state, { e }) {
@@ -33,10 +25,9 @@ const mutations = {
   add(state,payload){
     console.log("111111",payload)
     state.address = payload;
-    wx.navigateTo({ url: "../../pages/addInterview/main" });
+    wx.navigateTo({ url: "../../pages/addInterview/main" });   
   }
 }
-
 export default {
   namespaced: true,
   state,

@@ -1,18 +1,18 @@
 <template>
   <div class="mainWarp">
-    <form  report-submit="true" @submit="submitA" @reset="formReset">
+    <form  report-submit="true" @submit="submit" @reset="formReset">
       <header class="header">面试信息</header>
       <div class="interviewList">
         <p class="listItem">
           <span>公司名称</span>
           <label>
-            <input placeholder="请输入公司名称" />
+            <input placeholder="请输入公司名称" name="text" type="text"/>
           </label>
         </p>
         <p class="listItem">
           <span>公司电话</span>
           <label>
-            <input placeholder="请输入面试联系人电话" />
+            <input placeholder="请输入面试联系人电话" name="tel" type="text"/>
           </label>
         </p>
         <p class="listItem">
@@ -47,7 +47,7 @@
       </div>
       <h4 class="remarkTitle">备注信息</h4>
       <div class="remarkContent">
-        <textarea placeholder="备注信息(可选，100个字以内)"></textarea>
+        <textarea placeholder="备注信息(可选，100个字以内)" name="textarea"></textarea>
       </div>
       <button class="sumbitBtn" form-type="submit" @click="gotoList">确定</button>
     </form>
@@ -124,13 +124,55 @@ export default {
       wx.navigateTo({ url: "../interviewAddress/main" });
     },
   gotoList(){
-     wx.navigateTo({ url: "../interviewList/main" });
+    wx:navigateTo({url:"../interviewList/main"})
   },
     alert() {
       Toast("在面试前一小时提醒你");
     },
-    submitA(e){
+    ...mapActions({
+      //formSubmit:"add/formSubmit"
+    }),
+     async submit(e){
+       //判断公司
+       if(!e.mp.detail.value.text){
+         console.log('请输入公司名称')
+         return
+       }
+       //判断手机号是否符合规范
+       if(
+          !/^1(3|4|5|7|8)\d{9}$/.test(e.mp.detail.value.tel) ||
+        !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(e.mp.detail.value.tel)
+       ){
+         console.log('请输入面试人手机或者座机')
+         return
+       }
+           // 判断公司地址
+      if (!this.address) {
+        Toast("请输入公司地址");
+        return;
+      }
+      let data=await this.formSubmit({e,time:this.time})
+      if(data.code===0){
+        console.log('打印成功')
+       wx.navigateTo({ url: "../interviewList/main" });
+      }
+      else{
+        console.log('添加失败')
+      }
         console.log(e)
+    },
+     columnchange(e) {
+      const { column, value } = e.mp.detail;
+      const oldLength = this.newMultiArray[2].length;
+      this.$set(this.multiIndex, column, value);
+      const newLength = this.newMultiArray[2].length;
+      if (newLength !== oldLength) {
+        this.$set(
+          this.multiIndex,
+          2,
+          newLength - oldLength + this.multiIndex[2]
+        );
+      }
     },
     //获取时间日期
     bindMultiPickerChange(e) {

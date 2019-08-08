@@ -10,9 +10,8 @@
             <lable :class="{'selected':tab === 4,'testTitle':true}"
           @click="changeTab(4)" >全部</lable>
         </div>
-    
     <div class="main">
-        <div v-if="tab===1">1</div>
+        <div v-if="tab===1" @click="interDetail">1</div>
         <div v-else-if="tab===2">2</div>
         <div v-else-if="tab===3">3</div>
         <div v-else>4</div>
@@ -29,6 +28,9 @@ export default {
   methods: {
     changeTab(index) {
       this.tab = index;
+    },
+    interDetail(){
+          wx.navigateTo({url: '../interviewDetails/main'})
     }
   },
     props:{

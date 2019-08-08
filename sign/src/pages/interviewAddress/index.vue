@@ -51,7 +51,6 @@ export default {
         }
     },
     created(){
-
     },
     mounted(){
         // this.getSuggestion('八维');

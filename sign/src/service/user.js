@@ -25,7 +25,6 @@ export function getListData(payload){
 }
 
 
-
 //更新手机号
 export function Updatephone(params) {
   return fly.post('/user/updatePhone', params);

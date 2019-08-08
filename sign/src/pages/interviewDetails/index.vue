@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="_section">
-            <button class="first">去打卡</button>
+            <button class="first" @click="gotoCard">去打卡</button>
             <button>放弃面试</button>
         </div>
     </div>
@@ -34,27 +34,23 @@
 <script>
 export default {
     props:{
-
     },
     components:{
-
     },
     data(){
         return {
-
         }
     },
     computed:{
-
     },
     methods:{
-
+        gotoCard(){
+             wx.navigateTo({url: '../hitCard/main'})
+        }
     },
     created(){
-
     },
     mounted(){
-
     }
 }
 </script>

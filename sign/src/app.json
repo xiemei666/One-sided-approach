@@ -1,18 +1,17 @@
 {
   "pages": [
-    "pages/home/main",
-    "pages/addInterview/main",
-    "pages/interviewList/main",
-    "pages/hitCard/main",
+     "pages/home/main",
     "pages/interviewDetails/main",
+    "pages/interviewList/main",
+    "pages/addInterview/main",
+    "pages/hitCard/main",
     "pages/interviewAddress/main",
     "pages/personalCenter/main"
   ],
-  "window": {
+  "window":{
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "一面而就",
     "navigationBarTextStyle": "black"
-    
   }
 }
