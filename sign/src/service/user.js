@@ -3,12 +3,10 @@ import fly from '@/utils/request';
 export function login(code) {
   return fly.post('/user/code2session', { code });
 }
-
 //添加面试
 export function Addinterview(params) {
-  return fly.post('/sign', params);
+  return fly.post('/sign', {params});
 }
-
 //获取面试详情
 export function InterviewDetails(params) {
   return fly.get('/sign/7', params);
@@ -18,8 +16,12 @@ export function Updatainterview(params) {
   return fly.put('/sign/7', params);
 }
 //获取面试列表
-export function GetinterviewList(params){
-   return fly.post('/sign', params);
+export function getListData(payload){
+    console.log("payload",payload)
+    if(payload.status===null){
+        delete payload.status
+    }
+    return request.get("/sign",payload)
 }
 
 

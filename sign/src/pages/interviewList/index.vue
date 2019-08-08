@@ -1,80 +1,149 @@
 <template>
-    <div class="mainWarp">
-        <div class="nav">
-            <lable class="span active">未开始</lable>
-            <lable class="span">已打开</lable>
-            <lable class="span">已放弃</lable>
-            <lable class="span">全部</lable>
-        </div>
-        <div class="main">
-            <div class="_p">
-                当前分类还没有面试!
-            </div>
-        </div>
+  <div>
+    <div class="title">
+      <span
+        v-for="(item,index) in list"
+        :key="index"
+        :class="ind===index?'active':''"
+        @click="tabs({index,status:item.status})"
+      >{{item.title}}</span>
     </div>
+    
+    <div class="list">
+      <div v-if="!data.length" class="tips">
+      <h5>当前分类还没有面试!</h5>
+      </div>
+      <template v-if="data.length" >
+         <div class="connext" v-for="item in data" :key="item.id" @click="getDetail(item.id)">
+        <dl>
+          <dt>{{item.company}}</dt>
+          <dd>北京上地街道</dd>
+          <dd>
+            面试时间:
+            <span>{{item.create_time}}</span>
+          </dd>
+        </dl>
+      </div>
+      </template>
+     
+    </div>
+  </div>
 </template>
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
-    props:{
-
-    },
-    components:{
-
-    },
-    data(){
-        return {
-
-        }
-    },
-    computed:{
-
-    },
-    methods:{
-
-    },
-    created(){
-
-    },
-    mounted(){
-
-    }
-}
+  props: {},
+  components: {},
+  data() {
+    return {
+     
+    };
+  },
+  computed: {
+    ...mapState({
+      list: state => state.list.list,
+      ind: state => state.list.ind,
+     
+    }),
+  },
+  methods: {
+    //获取数据
+    ...mapActions({
+    
+    }),
+  },
+  created() {
+  },
+  onShow(){
+    this.getData();
+   
+  },
+  mounted() {
+  },
+  //上拉触底事件
+  onReachBottom () {
+    this.load()
+  },
+  //下拉刷新
+  onPullDownRefresh () {
+    this.down()
+  },
+};
 </script>
 <style scoped lang="scss">
-.mainWarp{
+.title {
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  span {
+    flex: 1;
+    height: 38px;
+    text-align: center;
+  }
+}
+.list{
+  padding-top: 40px;
+}
+.active {
+  border-bottom: 1px solid #f90;
+  color: #f90;
+}
+.connext {
+  padding: 5px 15px;
+  border-top: 10px solid #eee;
+  background: #fff;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  dl {
+    width: 70%;
+    line-height: 30px;
+  }
+  dd {
+    font-size: 14px;
+    span {
+      font-size: 16px;
+    }
+  }
+  p {
+    width: 30%;
     height: 100%;
-    .nav{
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: #fff;
-        z-index: 99;
-        width: 100%;
-        height: 88rpx;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        border-top: 2rpx solid #eee;
-        .span{
-            color: #000;
-            font-weight: 500;
-        }
-        .active{
-            line-height: 88rpx;
-            text-align: center;
-            box-sizing: border-box;
-            border-bottom: 3rpx solid #197dbf;
-            color:#197dbf;
-        }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    span {
+      margin-bottom: 10px;
+      padding: 3px 6px;
+      &.first {
+        background-color: hsla(220, 4%, 58%, 0.1);
+        border-color: hsla(220, 4%, 58%, 0.2);
+        color: #909399;
+      }
+      &.last {
+        background-color: hsla(0, 87%, 69%, 0.1);
+        border-color: hsla(0, 87%, 69%, 0.2);
+        color: #f56c6c;
+      }
+      &.status {
+        background-color: rgba(64, 158, 255, 0.1);
+        color: #409eff;
+      }
     }
-    .main{
-        padding-top: 88rpx;
-        ._p{
-            padding: 100rpx 0;
-            text-align: center;
-            font-size: 30rpx;
-            color: #666;
-        }
-    }
+  }
+}
+.tips {
+  width: 100%;
+  height: 60px;
+  h5 {
+    height: 60px;
+    line-height: 50px;
+    text-align: center;
+  }
 }
 </style>
