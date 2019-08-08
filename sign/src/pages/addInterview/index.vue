@@ -17,7 +17,7 @@
       <p class="listItem">
         <span>面试时间</span>
         <label class="Import">
-          <input placeholder  @click="address">
+          <input placeholder  >
           <img src="../../../static/images/jinggao.png" @click="war" alt="">
            <van-toast id="van-toast" />
         </label>
@@ -25,7 +25,7 @@
       <p class="listItem">
         <span>面试地址</span>
         <label>
-          <input placeholder="请选择面试地址">
+          <input placeholder="请选择面试地址" @click="address">
         </label>
       </p>
     </div>
