@@ -16,16 +16,17 @@
       <div 
       class="li"
       v-for="item in data"
-      :key="item.id"
+      :key="item.id" 
+      @click="gotoDetail"
       >
         <div class="_top">
-          <label class="_span">{{item.company}}</label>
-          <label class="_spans">未开始</label>
+           <label class="_span">{{item.company}}</label>
+           <label class="_spans">未开始</label>
         </div>
-        <div class="_conter">北京上地街道</div>
+        <div class="_conter">{{item.address}}</div>
         <div class="_buttom">
           <label>面试时间：</label>
-          <label class="_span">未开始</label>
+          <label class="_span">未提醒</label>
         </div>
       </div>
       </template>
@@ -51,7 +52,10 @@ export default {
     ...mapActions({
       getData: "interviewList/getData",
       tabs:"interviewList/tabs"
-    })
+    }),
+    gotoDetail(){
+      wx.navigateTo({url: '../interviewDetails/main'})
+    }
   },
   created() {},
   onShow() {

@@ -8,9 +8,6 @@ import home from './modules/home';
 import address from './modules/address';
 import interviewList from './modules/interviewList'
 Vue.use(Vuex);
-
-
-Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     home,

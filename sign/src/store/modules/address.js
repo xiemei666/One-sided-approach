@@ -29,14 +29,14 @@ const actions = {
   }
 }
 const mutations = {
-  searchVal(state, { e }) {
+  searchVal(state,{ e }) {
     // 调用接口
     qqMapSdk.search({
       keyword: e.mp.detail.value, //搜索关键词
       // region:"北京",
       // location: `${latitude},${longitude}`, //设置周边搜索中心点
       success: function (res) {
-        // console.log(res)
+         console.log(res)
         state.data = res.data
       }
     });

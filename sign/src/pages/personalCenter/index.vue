@@ -14,7 +14,7 @@
         <label class="span">我的面试</label>
         <img src="../../../static/images/arrow.svg"/>
       </div>
-      <button class="serviceCenter" type="primary" @click="tishi">
+      <button class="serviceCenter" type="primary" @click="alert">
         <i><img src="../../../static/images/jinggao.png"/></i>
         <label class="span">客服中心</label>
         <img src="../../../static/images/arrow.svg"/>      
@@ -40,9 +40,13 @@ export default {
    interviewList(){
     wx.navigateTo({url: '../interviewList/main'})
    },
-   tishi(){
-    
-   },
+    alert() {
+      wx.showToast({
+        title: "暂未此功能",
+        icon: "none",
+        duration: 2000
+      });
+    },
     
   }
 };

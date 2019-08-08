@@ -1,5 +1,6 @@
-import {getList} from '../../service/interviewList'
-const state ={
+import { getList } from '../../service/interviewList'
+import {format} from '../../utils/date'
+const state = {
     ind: 0,
     list: [
         {
@@ -26,7 +27,6 @@ const state ={
     //所有数据
     data: [],
     item: {},
-    
     status: {
         "-1": "未开始",
         "0": "已打卡",
@@ -34,20 +34,20 @@ const state ={
     },
     page: 1,
     //是否还有数据
-    getDataFalg:true,
+    getDataFalg: true,
     //每页几条
-    pageSize:10
+    pageSize: 10
 }
 const getters = {
-
 }
 const actions = {
-    async getData({ commit, state },payload){
-        if(!state.getDataFalg) return 
+    async getData({ commit, state }, payload) {
+        //没有数据就停止
+        if (!state.getDataFalg) return
         let index = payload ? payload.index : state.ind
         let status = payload ? payload.status : state.list[state.ind].status
         // console.log("status11111",status)
-        let data = await getList({ status, page: state.page, pageSize: state.pageSize})
+        let data = await getList({ status, page: state.page, pageSize: state.pageSize })
         state.data = data.data
         // if(data.data.length<10){
         //     await commit("updateDataFalg",false)
@@ -56,7 +56,7 @@ const actions = {
         //     data.data=state.data.concat(data.data)
         // }
         //时间戳转时间
-        console.log("11111",state.data)
+        console.log("11111", state.data)
         data = data.data.map(item => {
             item.create_time = format(new Date(item.create_time * 1), 'yy-MM-dd hh:mm:ss')
             return item
@@ -65,7 +65,7 @@ const actions = {
         // console.log("11111111111111",await getList())
     },
     //tab切换
-    async tabs({commit,dispatch},{index,status}){
+    async tabs({ commit, dispatch }, { index, status }) {
         // await commit("pageUpdate",1)
         // await commit("updateDataFalg",true)
         // await dispatch("getData",{index,status})    
@@ -77,7 +77,7 @@ const mutations = {
     // },
     updateData(state, { index, data }) {
         state.ind = index;
-        state.data = data;   
+        state.data = data;
     },
 }
 export default {

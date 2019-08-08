@@ -10,7 +10,7 @@
                 <div class="_div">
                     <p class="first">{{item.title}}</p>
                     <p class="last">{{item.address}}</p>
-                </div>
+               </div>
             </div>
         </div>
     </div>
@@ -19,7 +19,6 @@
 import {mapState,mapActions,mapMutations} from 'vuex';
 export default {
     props:{
-
     },
     components:{
 
@@ -35,9 +34,6 @@ export default {
         })
     },
     methods:{
-        // ...mapActions({
-        //     getSuggestion: 'address/getSuggestion'
-        // }),
         ...mapMutations({
             searchVal: "address/searchVal",
             add:"address/add"
