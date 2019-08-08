@@ -21,8 +21,9 @@ import {mapState, mapActions} from 'vuex';
 export default {
   data(){
     return {
-      markers: []
+      markers:[]
     }
+  
   },
   computed: {
     ...mapState({

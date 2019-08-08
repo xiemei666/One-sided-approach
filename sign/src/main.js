@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 // 引入store
 import store from './store'
-
+import mpvueToastRegistry from 'mptoast'
 Vue.config.productionTip = false
 App.mpType = 'app'
 

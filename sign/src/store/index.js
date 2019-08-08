@@ -12,7 +12,6 @@ export default new Vuex.Store({
   modules: {
     home,
     address,
-  
   },
   plugins: [CreateLogger()]
 })

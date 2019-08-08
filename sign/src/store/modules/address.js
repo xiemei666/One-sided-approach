@@ -1,15 +1,12 @@
 import QQMapWX from '@/utils/qqmap-wx-jssdk.min.js';
-
 // 实例化一下
 const qqMapSdk = new QQMapWX({
   key: 'UCGBZ-XN5KU-FUNVX-2JHW7-QJG3S-65F5I' // 必填
 });
-
 const state = {
   data: [],
   address:""
 }
-
 const actions = {
   // getSuggestion({ commit }, payload) {
   //   qqMapSdk.getSuggestion({
@@ -21,7 +18,6 @@ const actions = {
   //   })
   // }
 }
-
 const mutations = {
   searchVal(state, { e }) {
     // 调用接口

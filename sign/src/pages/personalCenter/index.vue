@@ -9,16 +9,17 @@
       </div>
     </div>
     <div class="main">
-      <div class="myInterview">
+      <div class="myInterview" @click="interviewList">
         <i><img src="../../../static/images/shizhong-copy.png"/></i>
-        <label class="span" @click="interviewList">我的面试</label>
+        <label class="span">我的面试</label>
         <img src="../../../static/images/arrow.svg"/>
       </div>
-      <button class="serviceCenter">
+      <button class="serviceCenter" type="primary" @click="tishi">
         <i><img src="../../../static/images/jinggao.png"/></i>
         <label class="span">客服中心</label>
-        <img src="../../../static/images/arrow.svg"/>
+        <img src="../../../static/images/arrow.svg"/>      
       </button>
+      <div class="tishiBox">功能尚未开启</div>
     </div>
     <!-- <div class="mask">
       <div class="_p">
@@ -28,23 +29,22 @@
     </div> -->
   </div>
 </template>
-
 <script>
 // Use Vuex
 // import store from "./store";
-
+import mptoast from 'mptoast'
 export default {
   computed: {
-    // count() {
-    //   return store.state.count;
-    // }
   },
   methods: {
    interviewList(){
     wx.navigateTo({url: '../interviewList/main'})
-   }
-  },
- 
+   },
+   tishi(){
+    
+   },
+    
+  }
 };
 </script>
 
@@ -176,5 +176,16 @@ export default {
       overflow: hidden;
     }
   }
+  .tishiBox{
+  width:400rpx;
+  height:100rpx;
+  line-height:100rpx;
+  text-align:center;
+  margin:0 auto;
+  color:white;
+   background-color: rgba(0,0,0,0.6);
+   display:none;
 }
+}
+
 </style>
