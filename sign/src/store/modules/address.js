@@ -21,7 +21,7 @@ const actions = {
       company: e.mp.detail.value.text,
       phone: e.mp.detail.value.tel,
       form_id: e.mp.detail.formId,
-      address: JSON.stringify(state.initialData.address),
+      address: state.initialData.address,
       latitude: state.map.location.lat,
       longitude: state.map.location.lng,
       start_time: new Date(time).getTime(),

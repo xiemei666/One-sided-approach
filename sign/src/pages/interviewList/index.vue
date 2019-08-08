@@ -5,7 +5,7 @@
         v-for="(item,index) in list"
         :key="index"
         :class="ind === index ? 'active' : ''"
-        :click="tabs({index,status:item.status})"
+        @click="tabs({index,status:item.status})"
       >{{item.title}}</span>
     </div>
     <div class="main">
@@ -13,21 +13,17 @@
         <p>当前分类还没有面试!</p>
       </div>
       <template v-if="data.length">
-      <div 
-      class="li"
-      v-for="item in data"
-      :key="item.id"
-      >
-        <div class="_top">
-          <label class="_span">{{item.company}}</label>
-          <label class="_spans">未开始</label>
+        <div class="li" v-for="item in data" :key="item.id" @click="getDetail(item.id)">
+          <div class="_top">
+            <label class="_span">{{item.company}}</label>
+            <label class="_spans" :class="item.status===-1?'first':(item.status===0? 'status' : 'last')">{{status[item.status]}}</label>
+          </div>
+          <div class="_conter">{{item.address}}</div>
+          <div class="_buttom">
+            <label>面试时间：{{item.create_time}}</label>
+            <label class="_span" :class="item.status===-1?'last':(item.status===0? 'status' : 'first')">未提醒</label>
+          </div>
         </div>
-        <div class="_conter">北京上地街道</div>
-        <div class="_buttom">
-          <label>面试时间：</label>
-          <label class="_span">未开始</label>
-        </div>
-      </div>
       </template>
     </div>
   </div>
@@ -44,20 +40,32 @@ export default {
     ...mapState({
       list: state => state.interviewList.list,
       ind: state => state.interviewList.ind,
-      data: state => state.interviewList.data
+      data: state => state.interviewList.data,
+      status: state => state.interviewList.status
     })
   },
   methods: {
     ...mapActions({
+      load: "interviewList/load",
+      down: "interviewList/down",
       getData: "interviewList/getData",
-      tabs:"interviewList/tabs"
+      tabs: "interviewList/tabs",
+      getDetail: "interviewList/getDetail"
     })
   },
   created() {},
   onShow() {
     this.getData();
   },
-  mounted() {}
+  mounted() {},
+  //上拉触底事件
+  onReachBottom() {
+    this.load();
+  },
+  // //下拉刷新
+  onPullDownRefresh() {
+    this.down();
+  }
 };
 </script>
 <style scoped lang="scss">
@@ -117,6 +125,20 @@ export default {
           background-color: hsla(220, 4%, 58%, 0.1);
           border-color: hsla(220, 4%, 58%, 0.2);
           color: #909399;
+          &.first {
+            background-color: hsla(220, 4%, 58%, 0.1);
+            border-color: hsla(220, 4%, 58%, 0.2);
+            color: #909399;
+          }
+          &.last {
+            background-color: hsla(0, 87%, 69%, 0.1);
+            border-color: hsla(0, 87%, 69%, 0.2);
+            color: #f56c6c;
+          }
+          &.status {
+            background-color: rgba(64, 158, 255, 0.1);
+            color: #409eff;
+          }
         }
       }
       > .conter {
@@ -145,6 +167,20 @@ export default {
           background-color: hsla(0, 87%, 69%, 0.1);
           border-color: hsla(0, 87%, 69%, 0.2);
           color: #f56c6c;
+          &.first {
+            background-color: hsla(220, 4%, 58%, 0.1);
+            border-color: hsla(220, 4%, 58%, 0.2);
+            color: #909399;
+          }
+          &.last {
+            background-color: hsla(0, 87%, 69%, 0.1);
+            border-color: hsla(0, 87%, 69%, 0.2);
+            color: #f56c6c;
+          }
+          &.status {
+            background-color: rgba(64, 158, 255, 0.1);
+            color: #409eff;
+          }
         }
       }
     }
