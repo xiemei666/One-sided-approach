@@ -49,14 +49,14 @@
       <div class="remarkContent">
         <textarea placeholder="备注信息(可选，100个字以内)"></textarea>
       </div>
-      <button class="sumbitBtn" form-type="submit">确定</button>
+      <button class="sumbitBtn" form-type="submit" @click="gotoList">确定</button>
     </form>
   </div>
 </template>
 <script>
 // Use Vuex
 // import store from "./store";
-// import Toast from "vant-weapp";
+ //import Toast from "vant-weapp";
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   data(){
@@ -116,7 +116,6 @@ export default {
       array.push(minutes);
       return array;
     }
-
   },
   //方法
   methods: {
@@ -126,7 +125,7 @@ export default {
     },
   gotoList(){
      wx.navigateTo({ url: "../interviewList/main" });
-  }
+  },
     alert() {
       Toast("在面试前一小时提醒你");
     },
