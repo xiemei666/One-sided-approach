@@ -1,67 +1,58 @@
 <template>
   <div class="mainWarp">
-    <form  report-submit="true" @submit="submitA" @reset="formReset">
+    <form report-submit="true" @submit="formSubmit" @reset="formReset">
       <header class="header">面试信息</header>
       <div class="interviewList">
         <p class="listItem">
-          <span>公司名称</span>
-          <label>
-            <input placeholder="请输入公司名称" />
-          </label>
+          <label for="text">公司名称</label>
+          <input placeholder="请输入公司名称" id="text" name="text" type="text" v-model="data.text"/>
         </p>
         <p class="listItem">
-          <span>公司电话</span>
-          <label>
-            <input placeholder="请输入面试联系人电话" />
-          </label>
+          <label for="tel">公司电话</label>
+          <input placeholder="请输入面试联系人电话" id="tel" name="tel" type="text" maxlength="11" v-model="data.tel"/>
         </p>
         <p class="listItem">
-          <span>面试时间</span>
+          <label for="time">面试时间</label>
           <!-- 多列选择器 multiSelector -->
           <!-- 滑块范围 range -->
           <picker
-              mode="multiSelector"
-              class="time"
-              :value="multiIndex"
-              :range="newMultiArray"
-              @change="bindMultiPickerChange"
-              @columnchange="columnchange"
-            >
-              <span>{{time}}</span>
-            </picker>
-          <img src="../../../static/images/jinggao.png" @click="alert"/>
-          <!-- <van-toast id="van-toast" /> -->
+            mode="multiSelector"
+            class="time"
+            :value="multiIndex"
+            :range="newMultiArray"
+            @change="bindMultiPickerChange"
+            @columnchange="columnchange"
+          >
+            <span>{{time}}</span>
+          </picker>
+          <icon class="icon img" @click="alert" type="info" size="22" />
         </p>
         <p class="listItem">
-          <span>面试地址</span>
-          <label>
-            <input 
+          <label for="url">面试地址</label>
+          <input
             class="dizhi"
-            placeholder="请选择面试地址"  
+            placeholder="请选择面试地址"
             @click="address"
-            :value="data.address"
             disabled
-            />
-          </label>
+            name="url"
+            v-model="data.address"
+          />
         </p>
       </div>
       <h4 class="remarkTitle">备注信息</h4>
       <div class="remarkContent">
-        <textarea placeholder="备注信息(可选，100个字以内)"></textarea>
+        <textarea placeholder="备注信息(可选，100个字以内)" name="textarea"></textarea>
       </div>
-      <div class="sumbitBtn" form-type="submit">确定</div>
+      <button class="sumbitBtn" form-type="submit">确定</button>
     </form>
   </div>
 </template>
 
 <script>
-// Use Vuex
-// import store from "./store";
-// import Toast from "vant-weapp";
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
-  data(){
-    return{
+  data() {
+    return {
       time: "",
       multiArray: [],
       multiIndex: [0, 0, 0, 0],
@@ -69,12 +60,12 @@ export default {
       month: "",
       day: "",
       hour: ""
-    }
+    };
   },
   //计算属性
   computed: {
     ...mapState({
-      data:state => state.address.address
+      data: state => state.address.initialData
     }),
     newMultiArray() {
       let array = [];
@@ -121,14 +112,59 @@ export default {
   //方法
   methods: {
     //跳转到添加页面
-    address(){
+    address() {
       wx.navigateTo({ url: "../interviewAddress/main" });
     },
     alert() {
-      Toast("在面试前一小时提醒你");
+      wx.showToast({
+        title: "在面试前一个小时我们会通知你哦",
+        icon: "none",
+        duration: 2000
+      });
     },
-    submitA(e){
-        console.log(e)
+    //引入方法
+    ...mapActions({
+      button: "address/submit"
+    }),
+    async formSubmit(e) {
+      //判断公司地址
+      if (!e.mp.detail.value.text) {
+        wx.showToast({
+          title: "请输入公司名称",
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
+      //判断手机号码
+      if (!/^1[3456789]\d{9}$/.test(e.mp.detail.value.tel) || 
+      !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(e.mp.detail.value.tel)) {
+        wx.showToast({
+          title: "请输入联系人的手机或座机",
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
+      //判断公司地址
+      if (!this.data) {
+        wx.showToast({
+          title: "请选择公司地址",
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
+      let data = await this.button({ e, time: this.time });
+      if (data.code === 0) {
+        wx.navigateTo({ url: "../interviewList/main" });
+      } else {
+        wx.showToast({
+          title: "添加失败",
+          icon: "none",
+          duration: 2000
+        });
+      }
     },
     //获取时间日期
     bindMultiPickerChange(e) {
@@ -189,13 +225,13 @@ export default {
       display: flex;
       align-items: center;
       font-size: 28rpx;
-      > span {
+      > label {
         width: 160rpx;
       }
-      .dizhi{
-        width: 100%;
+      .dizhi {
+        width: 80%;
       }
-      ._picker{
+      ._picker {
         flex: 1;
         font-size: 30rpx;
         color: #333;
@@ -205,12 +241,12 @@ export default {
         text-overflow: ellipsis;
         padding-right: 30rpx;
         box-sizing: border-box;
-        ._span{
+        ._span {
           width: 100%;
           line-height: 88rpx;
         }
       }
-      img{
+      .img {
         width: 48rpx;
         height: 48rpx;
         margin-right: 30rpx;
@@ -244,6 +280,7 @@ export default {
     background: #999999;
     color: #fff;
     font-size: 32rpx;
+    border-radius: 0;
   }
 }
 </style>
