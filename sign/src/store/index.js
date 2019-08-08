@@ -6,11 +6,13 @@ import CreateLogger from 'vuex/dist/logger';
 import home from './modules/home';
 import address from './modules/address'
 import addinterview from './modules/addinterview';
+
 Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     home,
-    address
+    address,
+  
   },
   plugins: [CreateLogger()]
 })

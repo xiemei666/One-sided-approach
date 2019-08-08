@@ -21,6 +21,13 @@
                 <label class="_label">面试状态：</label>
                 <label class="span">已放弃</label>
             </div>
+            <div class="li">
+                <label class="_label">取消提醒：</label>
+            </div>
+        </div>
+        <div class="_section">
+            <button class="first">去打卡</button>
+            <button>放弃面试</button>
         </div>
     </div>
 </template>
@@ -78,6 +85,27 @@ export default {
                 padding-right: 30rpx;
                 box-sizing: border-box;
             }
+        }
+    }
+    ._section{
+        display: flex;
+        margin: 50rpx 15rpx;
+        button{
+            background: #dc4e42;
+            flex: 1;
+            color: #fff;
+            margin: 15rpx;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            line-height: 2.55555556;
+            position: relative;
+            display: block;
+        }
+        .first{
+            background: #197dbf;
         }
     }
 }

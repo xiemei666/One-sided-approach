@@ -6,21 +6,41 @@ const qqMapSdk = new QQMapWX({
 });
 
 const state = {
-
+  data: [],
+  address:""
 }
+
 const actions = {
-  getSuggestion({commit}, payload){
-    qqMapSdk.getSuggestion({
-      keyword: payload,
-      success: res=>{
-        console.log('res...', res);
+  // getSuggestion({ commit }, payload) {
+  //   qqMapSdk.getSuggestion({
+  //     keyword: payload,
+  //     success: res => {
+  //       console.log('res...222', res);
+  //       commit('updata', res)
+  //     }
+  //   })
+  // }
+}
+
+const mutations = {
+  searchVal(state, { e }) {
+    // 调用接口
+    qqMapSdk.search({
+      keyword: e.mp.detail.value, //搜索关键词
+      // region:"北京",
+      // location: `${latitude},${longitude}`, //设置周边搜索中心点
+      success: function (res) {
+        state.data = res.data
       }
-    })
+    });
+  },
+  add(state,payload){
+    console.log("111111",payload)
+    state.address = payload;
+    wx.navigateTo({ url: "../../pages/addInterview/main" });
   }
 }
-const mutations = {
-  
-}
+
 export default {
   namespaced: true,
   state,
