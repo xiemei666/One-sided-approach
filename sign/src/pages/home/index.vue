@@ -11,9 +11,9 @@
     <cover-img><img src="../../../static/images/location.png" alt=""></cover-img>
     </cover-view>
       <img src="../../../static/images/my.png" class="img" alt="" @click="mine">
-    <button class="add" @click="go">
+    <div class="add" @click="go">
     添加面试
-    </button>
+    </div>
   </div>
 </template>
 <script>
@@ -23,7 +23,6 @@ export default {
     return {
       markers:[]
     }
-  
   },
   computed: {
     ...mapState({
@@ -48,7 +47,7 @@ export default {
 .wrap{
     width:100%;
     height:100%;
-map{
+#map{
   width: 100%;
   height: 100%;
 }
@@ -75,6 +74,9 @@ map{
 .add{
     width:100%;
     position:fixed;
+    height:100rpx;
+    line-height:100rpx;
+    text-align:center;
     left:0;
     bottom:0;
     background:black;

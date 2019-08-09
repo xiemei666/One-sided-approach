@@ -1,4 +1,4 @@
-import { getList } from '../../service/interviewList'
+import { getList, getDetailData } from '../../service/interviewList'
 import { format } from '../../utils/date'
 const state = {
     ind: 0,
@@ -43,10 +43,10 @@ const getters = {
 const actions = {
     async getData({ commit, state }, payload) {
         //没有数据就停止
-        console.log('commit...',commit)
+        console.log('commit...', commit)
         //  if (!state.getDataFalg) return
-         let index = payload ? payload.index : state.ind
-         let status = payload ? payload.status : state.list[state.ind].status
+        let index = payload ? payload.index : state.ind
+        let status = payload ? payload.status : state.list[state.ind].status
         // console.log("status11111",status)
         let data = await getList({ status, page: state.page, pageSize: state.pageSize })
         state.data = data.data
@@ -68,22 +68,30 @@ const actions = {
     //tab切换
     async tabs({ commit, dispatch }, { index, status }) {
         //始终从第一页开始
-       // await commit("pageUpdate", 1)
+        // await commit("pageUpdate", 1)
         //await commit("updateDataFalg", true)
         await dispatch("getData", { index, status })
     },
+    //列表详情
+    async getDetail({ commit }, id) {
+        console.log('id...', id)
+        let data = await getDetailData(id)
+
+        commit('goToDetail', data)
+    }
 }
 const mutations = {
-    updateDataFalg(state,payload){
-        state.getDataFalg=payload
+    updateDataFalg(state, payload) {
+        state.getDataFalg = payload
     },
     updateData(state, { index, data }) {
         state.ind = index;
         state.data = data;
     },
-    getDetail(state,item){
-        state.item=item;
-        wx:navigator({url:'../../pages/interviewDetails/main'})
+    //跳转列表详情
+    goToDetail(state, item) {
+        state.item = item;
+       wx.navigateTo({url: '../../pages/interviewDetails/main'})
     }
 }
 export default {

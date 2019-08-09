@@ -9,7 +9,8 @@ const actions = {
       latitude: state.address.location.lat,
       form_id: e.mp.detail.formId,
       address: JSON.stringify(state.address),
-      description: e.mp.detail.value.textarea
+      description: e.mp.detail.value.textarea,
+      start_time: e.map.detail.value.start_time
     })
     return data
   }

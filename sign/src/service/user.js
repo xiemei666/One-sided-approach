@@ -3,14 +3,6 @@ import fly from '@/utils/request';
 export function login(code) {
   return fly.post('/user/code2session', { code });
 }
-//添加面试
-export function Addinterview(params) {
-  return fly.post('/sign', {params});
-}
-//获取面试详情
-export function InterviewDetails(params) {
-  return fly.get('/sign/7', params);
-}
 //更新面试信息
 export function Updatainterview(params) {
   return fly.put('/sign/7', params);
@@ -23,8 +15,6 @@ export function getListData(payload){
     }
     return request.get("/sign",payload)
 }
-
-
 //更新手机号
 export function Updatephone(params) {
   return fly.post('/user/updatePhone', params);

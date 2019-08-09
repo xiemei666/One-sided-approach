@@ -15,9 +15,10 @@
       <template v-if="data.length">
       <div 
       class="li"
+      @click="goToDetail(item.id)"
       v-for="item in data"
       :key="item.id" 
-      @click="getDetail(item.id)"
+  
       >
         <div class="_top">
            <label class="_span">{{item.company}}</label>
@@ -25,7 +26,7 @@
         </div>
         <div class="_conter">{{item.address}}</div>
         <div class="_buttom">
-          <label>面试时间：{{item.create_time}}</label>
+          <label>面试时间：{{item.start_time}}</label>
           <label class="_span" :class="item.status===-1?'last':(item.status===0?'status':'')">未提醒</label>
         </div>
       </div>
@@ -50,14 +51,21 @@ export default {
     })
   },
   methods: {
+     deta(){
+      wx:navgateTo({url:'../interviewDetails/main'})
+    },
+    ...mapMutations({
+       goToDetail:"interviewList/goToDetail"
+    }),
     ...mapActions({
       getData: "interviewList/getData",
       tabs:"interviewList/tabs",
       getDetail:"interviewList/getDetail"
     }),
-    gotoDetail(){
-     // wx.navigateTo({url: '../interviewDetails/main'})
-    }
+    // jjk(){
+   
+    //      wx.navigateTo({url: '../interviewDetails/main'})
+    // }
   },
   created() {},
   onShow() {

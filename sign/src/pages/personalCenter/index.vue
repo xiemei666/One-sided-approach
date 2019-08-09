@@ -27,27 +27,39 @@
       </div>
       <button>同意</button>
     </div> -->
+    <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">获取手机号</button>
   </div>
+  
 </template>
 <script>
 // Use Vuex
-// import store from "./store";
+ import {mapState,mapActions} from 'vuex';
 import mptoast from 'mptoast'
 export default {
   computed: {
   },
   methods: {
+  ...mapActions({
+    Updatephone:'user/Updatephone'
+  }),
+   //获取手机号
+    getPhoneNumber(e){
+      console.log(e)
+    },
+
+ //跳转我的面试
    interviewList(){
     wx.navigateTo({url: '../interviewList/main'})
    },
+   //提示没有客服功能
     alert() {
       wx.showToast({
         title: "暂未此功能",
         icon: "none",
         duration: 2000
       });
-    },
-    
+    }
+   
   }
 };
 </script>

@@ -6,14 +6,16 @@ import CreateLogger from 'vuex/dist/logger';
 import hitCard from './modules/hitCard';
 import home from './modules/home';
 import address from './modules/address';
-import interviewList from './modules/interviewList'
+import interviewList from './modules/interviewList';
+import user from './modules/user'
 Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     home,
     hitCard,
     address,
-    interviewList
+    interviewList,
+    user
   },
   plugins: [CreateLogger()]
 })

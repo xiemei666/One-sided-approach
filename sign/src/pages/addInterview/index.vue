@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState,mapMutations,mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -158,14 +158,16 @@ export default {
         return;
       }
       let data = await this.button({ e, time: this.time });
-      if (data.code === 0) {
-        wx.navigateTo({ url: "../interviewList/main" });
-      } else {
-        wx.showToast({
-          title: "添加失败",
-          icon: "none",
-          duration: 2000
-        });
+      if(data.code===0){
+          wx.showModal({
+            title: '温馨提示',
+            content: '确定添加面试？',
+            success (res) {
+            if (res.confirm) {
+                  wx.navigateTo({ url: "../interviewList/main" });
+            } 
+          }
+        })
       }
     },
      columnchange(e) {
