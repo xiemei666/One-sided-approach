@@ -5,7 +5,7 @@ export function getList(payload){
     if(payload.status===null){
         delete payload.status
     }
-    console.log()
+    console.log('payload...',payload)
     return fly.get("/sign",payload)
 }
 //更改数据
