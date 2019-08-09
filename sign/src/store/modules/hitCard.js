@@ -18,7 +18,7 @@ const actions = {
     wx.getLocation({
       type: 'wgs84',
       success (res) {
-        console.log('location', res);
+        // console.log('location', res);
         commit('updateLocation', res);
       }
     })

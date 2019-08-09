@@ -171,7 +171,7 @@ export default {
       if (e) {
         this.multiIndex = e.target.value;
       }
-      console.log("当前选择的时间", this.multiIndex);
+      // console.log("当前选择的时间", this.multiIndex);
       const index = this.multiIndex;
       const year = this.year;
       const month = this.newMultiArray[0][index[0]];

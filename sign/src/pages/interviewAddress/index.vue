@@ -35,9 +35,6 @@ export default {
         })
     },
     methods:{
-        // ...mapActions({
-        //     getSuggestion: 'address/getSuggestion'
-        // }),
         ...mapMutations({
             searchVal: "address/searchVal",
             add:"address/add"
@@ -53,9 +50,7 @@ export default {
     created(){
 
     },
-    mounted(){
-        // this.getSuggestion('八维');
-    }
+    mounted(){}
 }
 </script>
 <style scoped lang="scss">

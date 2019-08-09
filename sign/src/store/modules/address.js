@@ -7,7 +7,7 @@ const qqMapSdk = new QQMapWX({
 
 const state = {
   data: [],
-  map:'',
+  addre:'',
   initialData:{
     text:'',
     tel:"",
@@ -21,9 +21,9 @@ const actions = {
       company: e.mp.detail.value.text,
       phone: e.mp.detail.value.tel,
       form_id: e.mp.detail.formId,
-      address: state.initialData.address,
-      latitude: state.map.location.lat,
-      longitude: state.map.location.lng,
+      address: JSON.stringify(state.addre),
+      latitude: state.addre.location.lat,
+      longitude: state.addre.location.lng,
       start_time: new Date(time).getTime(),
       description: e.mp.detail.value.textarea
     })
@@ -45,9 +45,8 @@ const mutations = {
     });
   },
   add(state, payload) {
-    console.log("090909",payload)
     state.initialData.address = payload.address;
-    state.map = payload
+    state.addre = payload
     wx.navigateTo({ url: "../../pages/addInterview/main" });
   }
 }

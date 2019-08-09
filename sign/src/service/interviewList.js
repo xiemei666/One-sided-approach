@@ -1,22 +1,20 @@
 import fly from '@/utils/request';
 
-//添加面试
-export function getList(payload){
-    //判断是哪一种类
-    if(payload.status===null){
-        delete payload.status
-    }
-    return fly.get("/sign",payload)
+// 获取面试列表
+export let getSignList = params => {
+  return fly.get('/sign', params);
 }
-//更改数据
-export function updateData(payload){
-    return request.put(`/sign/${payload.id}`,{
-        remind:payload.remind,
-        status:payload.status,
-        sign_time:payload.sign_time
-    })
+
+// 获取面试详情
+export let getSignDetail = id => {
+  return fly.get('/sign/' + id);
+}
+
+// 更新面试状态
+export let updateSignDetail = (id, params) => {
+  return fly.put('/sign/' + id, params);
 }
 //获取详情数据 
 export function getDetailData(id){
-    return request.get(`/sign/${id}`)
+  return fly.get(`/sign/${id}`)
 }

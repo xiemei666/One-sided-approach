@@ -1,189 +1,103 @@
 <template>
-  <div class="mainWarp">
-    <div class="nav">
+  <div class="wrap">
+    <header>
       <span
-        v-for="(item,index) in list"
+        @click="tabChange(index)"
+        v-for="(item, index) in types"
         :key="index"
-        :class="ind === index ? 'active' : ''"
-        @click="tabs({index,status:item.status})"
-      >{{item.title}}</span>
-    </div>
-    <div class="main">
-      <div class="_p" v-if="!data.length">
-        <p>当前分类还没有面试!</p>
-      </div>
-      <template v-if="data.length">
-        <div class="li" v-for="item in data" :key="item.id" @click="getDetail(item.id)">
-          <div class="_top">
-            <label class="_span">{{item.company}}</label>
-            <label class="_spans" :class="item.status===-1?'first':(item.status===0? 'status' : 'last')">{{status[item.status]}}</label>
-          </div>
-          <div class="_conter">{{item.address}}</div>
-          <div class="_buttom">
-            <label>面试时间：{{item.create_time}}</label>
-            <label class="_span" :class="item.status===-1?'last':(item.status===0? 'status' : 'first')">未提醒</label>
-          </div>
-        </div>
-      </template>
-    </div>
+        :class="(active+3)%4===index?'active':''"
+      >{{item}}</span>
+    </header>
+    <signList :list="list"></signList>
+    <p class="more" v-if="list.length && list.length>=10">{{hasMore?'上拉加载更多': '我是有底线的'}}</p>
   </div>
 </template>
+
 <script>
+import signList from "../../components/list";
 import { mapState, mapMutations, mapActions } from "vuex";
+
 export default {
-  props: {},
-  components: {},
   data() {
-    return {};
+    return {
+      types: ["未开始", "已打卡", "已放弃", "全部"]
+    };
   },
   computed: {
     ...mapState({
+      active: state => state.interviewList.active,
       list: state => state.interviewList.list,
-      ind: state => state.interviewList.ind,
-      data: state => state.interviewList.data,
-      status: state => state.interviewList.status
+      page: state => state.interviewList.page,
+      hasMore: state => state.interviewList.hasMore
     })
   },
   methods: {
+    ...mapMutations({
+      updateState: "interviewList/updateState"
+    }),
     ...mapActions({
-      load: "interviewList/load",
-      down: "interviewList/down",
-      getData: "interviewList/getData",
-      tabs: "interviewList/tabs",
-      getDetail: "interviewList/getDetail"
-    })
+      getList: "interviewList/getList"
+    }),
+    tabChange(index) {
+      this.updateState({ active: (index + 1) % 4, page: 1 });
+      this.getList();
+    }
   },
-  created() {},
+  components: {
+    signList
+  },
   onShow() {
-    this.getData();
+    this.getList(1);
   },
-  mounted() {},
-  //上拉触底事件
   onReachBottom() {
-    this.load();
-  },
-  // //下拉刷新
-  onPullDownRefresh() {
-    this.down();
+    if (this.hasMore) {
+      this.updateState({ page: this.page + 1 });
+      this.getList();
+    } else {
+      wx.showToast({
+        title: "没有更多数据了",
+        icon: "none",
+        duration: 2000
+      });
+    }
   }
 };
 </script>
-<style scoped lang="scss">
-.mainWarp {
+
+<style lang="scss" scoped>
+.wrap {
   height: 100%;
-  .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #fff;
-    z-index: 99;
-    width: 100%;
-    height: 88rpx;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-top: 2rpx solid #eee;
-    span {
-      color: #000;
-      font-weight: 500;
-    }
-    .active {
-      line-height: 88rpx;
-      text-align: center;
-      box-sizing: border-box;
-      border-bottom: 3rpx solid #197dbf;
-      color: #197dbf;
-    }
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 99;
+  width: 100%;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top: 1px solid #eee;
+  span {
+    line-height: 88rpx;
+    text-align: center;
+    box-sizing: border-box;
+    border-bottom: 2rpx solid #fff;
   }
-  .main {
-    padding-top: 88rpx;
-    > ._p {
-      padding: 100rpx 0;
-      text-align: center;
-      font-size: 30rpx;
-      color: #666;
-    }
-    .li {
-      border-top: 20rpx solid #eee;
-      width: 100%;
-      padding: 10rpx 30rpx;
-      box-sizing: border-box;
-      > ._top {
-        display: flex;
-        line-height: 1.5;
-        margin: 15rpx 0;
-        align-items: center;
-        justify-content: space-between;
-        > ._span {
-          color: #000;
-          font-size: 44rpx;
-          font-weight: 500;
-        }
-        > ._spans {
-          font-size: 30rpx;
-          padding: 5rpx 10rpx;
-          background-color: hsla(220, 4%, 58%, 0.1);
-          border-color: hsla(220, 4%, 58%, 0.2);
-          color: #909399;
-          &.first {
-            background-color: hsla(220, 4%, 58%, 0.1);
-            border-color: hsla(220, 4%, 58%, 0.2);
-            color: #909399;
-          }
-          &.last {
-            background-color: hsla(0, 87%, 69%, 0.1);
-            border-color: hsla(0, 87%, 69%, 0.2);
-            color: #f56c6c;
-          }
-          &.status {
-            background-color: rgba(64, 158, 255, 0.1);
-            color: #409eff;
-          }
-        }
-      }
-      > .conter {
-        font-size: 32rpx;
-        color: #999;
-        line-height: 1.2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        margin: 15rpx 0;
-        align-items: center;
-        justify-content: space-between;
-      }
-      > ._buttom {
-        font-size: 34rpx;
-        color: #666;
-        display: flex;
-        line-height: 1.5;
-        margin: 15rpx 0;
-        align-items: center;
-        justify-content: space-between;
-        > ._span {
-          padding: 5rpx 10rpx;
-          background-color: hsla(0, 87%, 69%, 0.1);
-          border-color: hsla(0, 87%, 69%, 0.2);
-          color: #f56c6c;
-          &.first {
-            background-color: hsla(220, 4%, 58%, 0.1);
-            border-color: hsla(220, 4%, 58%, 0.2);
-            color: #909399;
-          }
-          &.last {
-            background-color: hsla(0, 87%, 69%, 0.1);
-            border-color: hsla(0, 87%, 69%, 0.2);
-            color: #f56c6c;
-          }
-          &.status {
-            background-color: rgba(64, 158, 255, 0.1);
-            color: #409eff;
-          }
-        }
-      }
-    }
+  span.active {
+    color: #197dbf;
+    font-weight: 500;
+    border-bottom: 3rpx solid #197dbf;
   }
+}
+.more {
+  text-align: center;
+  font-size: 32rpx;
+  line-height: 2;
+  color: #999;
+  // border-bottom: 20rpx solid #eee;
+  border-top: 20rpx solid #eee;
 }
 </style>

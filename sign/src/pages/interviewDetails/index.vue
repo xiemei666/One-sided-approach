@@ -3,15 +3,15 @@
     <div class="ul">
       <div class="li">
         <label class="_label">面试地址：</label>
-        <label class="span"></label>
+        <label class="span">{{data.address}}</label>
       </div>
       <div class="li">
         <label class="_label">面试时间：</label>
-        <label class="span"></label>
+        <label class="span">{{data.start_time}}</label>
       </div>
       <div class="li">
         <label class="_label">联系方式：</label>
-        <label class="span"></label>
+        <label class="span">{{data.phone}}</label>
       </div>
       <div class="li">
         <label class="_label">是否提醒：</label>
@@ -36,13 +36,18 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   props: {},
   components: {},
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      data:state => state.interviewList.info
+    })
+  },
   methods: {},
   created() {},
   mounted() {}
