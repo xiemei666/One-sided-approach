@@ -1,8 +1,13 @@
 <script>
-import {login} from '@/service/';
-
+import { login } from "@/service/";
+import { mapMutations } from "vuex";
 export default {
-  created () {
+  methods: {
+    ...mapMutations({
+      updateOpenid: "hitCard/updateOpenId"
+    })
+  },
+  created() {
     // 调用API从本地缓存中获取数据
     /*
      * 平台 api 差异的处理方式:  api 方法统一挂载到 mpvue 名称空间, 平台判断通过 mpvuePlatform 特征字符串
@@ -12,25 +17,26 @@ export default {
      * 支付宝(蚂蚁)：mpvue === my, mpvuePlatform === 'my'
      */
 
-
     // 调用登陆接口
     wx.login({
-      success: async (res)=>{
+      success: async res => {
         if (res.code) {
           //发起网络请求
           let data = await login(res.code);
-          console.log('res...', data);
+          if(data.code === 0){
+            this.updateOpenid(data.data.openid)
+          }
         } else {
-          console.log('登录失败！' + res.errMsg)
+          console.log("登录失败！" + res.errMsg);
         }
       }
-    })
+    });
   }
-}
+};
 </script>
 
 <style>
-page{
+page {
   width: 100%;
   height: 100%;
 }
@@ -40,7 +46,14 @@ page{
   padding: 0;
   list-style: none;
 }
-html,body,div,p,span,ul,ol,li{
+html,
+body,
+div,
+p,
+span,
+ul,
+ol,
+li {
   box-sizing: border-box;
 }
 </style>

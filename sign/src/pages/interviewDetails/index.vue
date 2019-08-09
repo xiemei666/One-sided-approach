@@ -24,6 +24,7 @@
       <template v-if="data.status==-1">
         <div class="li">
           <label class="_label">取消提醒：</label>
+          <switch checked bindchange="switch1Change"/>
         </div>
       </template>
     </div>

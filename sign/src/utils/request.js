@@ -1,5 +1,6 @@
 var Fly = require("flyio/dist/npm/wx")
 const fly = new Fly;
+import store from "../store"
 
 //定义公共headers
 // fly.config.headers={
@@ -11,11 +12,20 @@ fly.config.timeout = 10000;
 fly.config.baseURL = "https://sign.jasonandjay.com"
 
 //添加请求拦截器
-fly.interceptors.request.use((request)=>{
+fly.interceptors.request.use((request) => {
+  // 把openid放在请求头部
+  console.log("444444444",store.state.hitCard)
+  console.log("333333333",store.state.hitCard.openId)
+  // let openid = store.state.hitCard.openId;
+  let openid = wx.getStorageSync('openId');
+  console.log(openid,"1111111111111111")
+  if (store.state.hitCard.openId) {
+    request.headers['openid'] = store.state.hitCard.openId;
+  }
   //给所有请求添加自定义header
-  request.headers["X-Tag"]="flyio";
+  // request.headers["X-Tag"]="flyio";
   //打印出请求体
-  console.log(request.body)
+  // console.log(request.body)
   //终止请求
   //var err=new Error("xxx")
   //err.request=request
@@ -28,12 +38,12 @@ fly.interceptors.request.use((request)=>{
 //添加响应拦截器，响应拦截器会在then/catch处理之前执行
 fly.interceptors.response.use(
   (response) => {
-      //只将请求结果的data字段返回
-      return response.data
+    //只将请求结果的data字段返回
+    return response.data
   },
   (err) => {
-      //发生网络错误后会走到这里
-      //return Promise.resolve("ssss")
+    //发生网络错误后会走到这里
+    //return Promise.resolve("ssss")
   }
 )
 

@@ -183,6 +183,21 @@ export default {
           duration: 2000
         });
       }
+      //模板推送
+      // let params = {
+      //   company: '北京八维研修学院',
+      //   phone: '12345678900',
+      //   form_id: e.target.formId,
+      //   address: JSON.stringify({address:'北京市海淀区唐家岭路57号'}),
+      //   longitude: 12.11,
+      //   latitude: 100,
+      //   start_time: 0,
+      //   description: ''
+      // }
+      // let date = new Date();
+      // params.start_time = date.getTime()+1*61*60*1000;
+      // console.log('params...', params);
+      // this.addInterview(params)
     },
     //获取时间日期
     bindMultiPickerChange(e) {
