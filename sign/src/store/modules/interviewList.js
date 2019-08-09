@@ -1,4 +1,4 @@
-import { getSignList, getSignDetail, updateSignDetail,getDetailData } from '../../service/interviewList';
+import { getSignList, getSignDetail, updateSignDetail, getDetailData } from '../../service/interviewList';
 import { format } from '../../utils/date'
 
 const state = {
@@ -9,10 +9,8 @@ const state = {
     page: 1, //当前页码
     pageSize: 10 //每页数据
 }
-
 const mutations = {
     updateState(state, payload) {
-        console.log("ppp", payload)
         // 判断是否还有更多页码
         if (payload.list) {
             if (payload.list.length === state.pageSize * state.page) {
@@ -26,16 +24,14 @@ const mutations = {
         }
     },
     goToDetail(state, item) {
-        console.log("1111111111",item)
+        item.data.start_time = format(new Date(item.data.start_time * 1), 'yy-MM-dd hh:mm:ss')
         state.info = item.data;
         wx.navigateTo({ url: "../../pages/interviewDetails/main" })
     },
 }
-
 const actions = {
     // 获取面试列表
     getList({ commit, state }, payload) {
-        // console.log('payload...', payload);
         return new Promise(async (resolve, reject) => {
             let params = {};
             // 修正面试状态
@@ -46,19 +42,16 @@ const actions = {
             params.page = state.page;
             params.pageSize = state.pageSize;
             let result = await getSignList(params);
-            console.log("qqqqqqqqqqq", result.data)
-
-            //时间戳转时间
+            //时间戳转时间和地址
             result.data.map(item => {
                 item.start_time = format(new Date(item.start_time * 1), 'yy-MM-dd hh:mm:ss')
+                // if(!JSON.parse(item.address)){
+                //     item.address = item.address
+                // }else{
+                //     item.address = JSON.parse(item.address)
+                // }
                 return item
             });
-            //   result.data.map(item=>{
-            //     //item.start_time = format(new Date(item.start_time * 1), 'yy-MM-dd hh:mm:ss')
-            //     item.address = JSON.parse(item.address)
-            //     console.log(item.address)
-            //   })
-
             // 判断是替换还是追加
             if (state.page === 1) {
                 commit('updateState', { list: result.data })
@@ -71,31 +64,20 @@ const actions = {
     },
     // 获取面试详情
     async getDetail({ commit }, id) {
-        //     return new Promise(async (resolve, reject)=>{
-        //       let data = await getSignDetail(payload);
-        //       if (data.data.address){
-        //         data.data.address = JSON.parse(data.data.address);
-        //       }
-        //       data.data.start_time = formatTime(data.data.start_time);
-        //       commit('updateState', {info: data.data});
-        //       resolve();
-        //     })
         let data = await getDetailData(id)
-        // let datas = data.data.start_time = format(new Date(item.start_time * 1), 'yy-MM-dd hh:mm:ss')
-        // console.log("dddddddddd",datas)
         commit("goToDetail", data)
     },
     // 更新面试状态
-    //   updateDetail({commit,dispatch}, payload){
-    //     return new Promise(async (resolve, reject)=>{
-    //       let data = await updateSignDetail(payload.id, payload.params);
-    //       if (data.code == 0){
-    //         // 重新获取详情
-    //         dispatch('getDetail', payload.id);
-    //       }
-    //       resolve(data);
-    //     })
-    //   }
+    updateDetail({ commit, dispatch }, payload) {
+        return new Promise(async (resolve, reject) => {
+            let data = await updateSignDetail(payload.id, payload.params);
+            if (data.code == 0) {
+                // 重新获取详情
+                dispatch('getDetail', payload.id);
+            }
+            resolve(data);
+        })
+    }
 }
 
 export default {

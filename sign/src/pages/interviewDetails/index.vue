@@ -15,22 +15,22 @@
       </div>
       <div class="li">
         <label class="_label">是否提醒：</label>
-        <label class="span">已提醒</label>
+        <label class="span">{{data.remind?'未提醒':'已提醒'}}</label>
       </div>
       <div class="li">
         <label class="_label">面试状态：</label>
-        <label class="span">已放弃</label>
+        <label class="span">{{data.status==-1?'未开始':info.status==0?'已打卡': '已放弃'}}</label>
       </div>
-      <template>
+      <template v-if="data.status==-1">
         <div class="li">
           <label class="_label">取消提醒：</label>
         </div>
       </template>
     </div>
-    <template>
+    <template v-if="data.status==-1">
       <div class="_section">
-        <button class="first">去打卡</button>
-        <button>放弃面试</button>
+        <button class="first" @click="goSign">去打卡</button>
+        <button @click="giveup">放弃面试</button>
       </div>
     </template>
   </div>
@@ -45,10 +45,31 @@ export default {
   },
   computed: {
     ...mapState({
-      data:state => state.interviewList.info
+      data: state => state.interviewList.info
     })
   },
-  methods: {},
+  methods: {
+    ...mapActions({
+      updateDetail: 'interviewList/updateDetail'
+    }),
+    goSign(){
+      wx.navigateTo({ url: '../hitCard/main' });
+    },
+    giveup() {
+      wx.showModal({
+        title: "温馨提示", //提示的标题,
+        content: "确定要放弃本次面试吗?", //提示的内容,
+        success: async res => {
+          if (res.confirm) {
+            await this.updateDetail({
+              id: this.data.id,
+              params: { status: 1 }
+            });
+          }
+        }
+      });
+    }
+  },
   created() {},
   mounted() {}
 };

@@ -5,11 +5,18 @@
       <div class="interviewList">
         <p class="listItem">
           <label for="text">公司名称</label>
-          <input placeholder="请输入公司名称" id="text" name="text" type="text" v-model="data.text"/>
+          <input placeholder="请输入公司名称" id="text" name="text" type="text" v-model="data.text" />
         </p>
         <p class="listItem">
           <label for="tel">公司电话</label>
-          <input placeholder="请输入面试联系人电话" id="tel" name="tel" type="text" maxlength="11" v-model="data.tel"/>
+          <input
+            placeholder="请输入面试联系人电话"
+            id="tel"
+            name="tel"
+            type="text"
+            maxlength="11"
+            v-model="data.tel"
+          />
         </p>
         <p class="listItem">
           <label for="time">面试时间</label>
@@ -137,8 +144,10 @@ export default {
         return;
       }
       //判断手机号码
-      if (!/^1[3456789]\d{9}$/.test(e.mp.detail.value.tel) || 
-      !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(e.mp.detail.value.tel)) {
+      if (
+        !/^1[3456789]\d{9}$/.test(e.mp.detail.value.tel) ||
+        !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(e.mp.detail.value.tel)
+      ) {
         wx.showToast({
           title: "请输入联系人的手机或座机",
           icon: "none",
@@ -157,7 +166,16 @@ export default {
       }
       let data = await this.button({ e, time: this.time });
       if (data.code === 0) {
-        wx.navigateTo({ url: "../interviewList/main" });
+        wx.showModal({
+          title: "温馨提示",
+          content: "添加面试成功",
+          showCancel:false,
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({ url: "../interviewList/main" });
+            }
+          }
+        })
       } else {
         wx.showToast({
           title: "添加失败",

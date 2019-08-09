@@ -11,7 +11,7 @@
     <div class="main">
       <div class="myInterview">
         <i><img src="../../../static/images/shizhong-copy.png"/></i>
-        <label class="span">我的面试</label>
+        <label class="span" @click="click">我的面试</label>
         <img src="../../../static/images/arrow.svg"/>
       </div>
       <button class="serviceCenter">
@@ -20,32 +20,31 @@
         <img src="../../../static/images/arrow.svg"/>
       </button>
     </div>
-    <!-- <div class="mask">
+    <div class="mask" v-if="showPhoneDialog">
       <div class="_p">
         为了更好的使用我们的服务，我们需要获取你的手机号码
       </div>
       <button>同意</button>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-// Use Vuex
-// import store from "./store";
+
 
 export default {
+  data () {
+    return {
+      showPhoneDialog: true
+    }
+  },
   computed: {
-    // count() {
-    //   return store.state.count;
-    // }
+   
   },
   methods: {
-    // increment() {
-    //   store.commit("increment");
-    // },
-    // decrement() {
-    //   store.commit("decrement");
-    // }
+    click(){
+      wx.navigateTo({ url: "../interviewList/main" });
+    }
   }
 };
 </script>

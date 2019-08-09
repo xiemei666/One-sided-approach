@@ -6,7 +6,7 @@
         <div class="dingW" @click="location">
           <img src="../../../static/images/location.png" />
         </div>
-        <div class="my" @click="location">
+        <div class="my" @click="home">
           <img src="../../../static/images/my.png" />
         </div>
       </div>
@@ -38,6 +38,9 @@ export default {
     }),
     click(){
       wx.navigateTo({ url: "../addInterview/main" });
+    },
+    home(){
+      wx.navigateTo({ url: "../personalCenter/main" });
     }
   },
   created() {},

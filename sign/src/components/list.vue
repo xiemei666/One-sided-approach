@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <ul v-if="list.length">
-      <li v-for="item in list" :key="item.id" @click="getDetail(item.id)">
+      <li v-for="item in list" :key="item.id" @click="getDetail(item.id,item)">
         <p>
           <span>{{item.company}}</span>
           <span :class="'tag'+(item.status+2)">{{item.status?item.status==1?'已放弃':'未开始':'已打卡'}}</span>
@@ -26,9 +26,6 @@ export default {
     }
   },
   methods: {
-    // goDetail(id){
-    //   // wx.navigateTo({ url: '../pages/interviewDetails/main?id='+id });
-    // }
     ...mapActions({
       getDetail: "interviewList/getDetail"
     })
@@ -42,7 +39,6 @@ export default {
 }
 li{
   border-top: 20rpx solid #eee;
-  // margin-top: 20rpx;
   width: 100%;
   padding: 10rpx 30rpx;
   box-sizing: border-box;
